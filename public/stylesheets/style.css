@@ -340,13 +340,13 @@
         text-rendering: optimizeLegibility;
     }
     .fontface-georgia {
-        font-family: Georgia !important;
+        font-family: Tangerine !important; /*Georgia*/
     }
     .fontface-opendyslexic {
-        font-family: opendyslexicregular !important;
+        font-family: Inconsolata !important; /*opendyslexicregular*/
     }
     .fontface-lato {
-        font-family: LatoWebBlack !important;
+        font-family: Droid Sans !important; /*LatoWebBlack*/
     }
     .ae-reading {
       border: solid blue 1px;

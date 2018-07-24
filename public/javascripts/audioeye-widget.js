@@ -880,6 +880,7 @@ var kathy = ChattyKathy(settings);
     getReadableElements(document.body);
     markHiddenElemtents();
     prepareAudio();
+    $('head').append('<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Inconsolata|Droid+Sans">');
 
 
     var playPauseBtn = $("#play-status-canvas");
