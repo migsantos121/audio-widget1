@@ -194,7 +194,10 @@
        padding-right: 0px;
        float:left; 
        font-size: 26px;
-       line-height: 36px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
        color: #99A2AA;
     }
     #font-btn:hover {

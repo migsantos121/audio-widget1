@@ -1,5 +1,5 @@
 
-var host = `http://18.191.160.243:3003`;//`http://18.191.160.243:3003`;    
+var host = `http://localhost:3003`;//`http://18.191.160.243:3003`;    
 var awsCredentials = new AWS.Credentials();
 var settings = {
     awsCredentials: awsCredentials,
@@ -391,14 +391,14 @@ var kathy = ChattyKathy(settings);
             $(`link[rel="stylesheet"]`)
                 .filter(function() {
                     console.log("filter stylesheets", this.href);
-                    return this.href.indexOf(host)==-1;
+                    return this.href.indexOf(host)==-1 && this.href.indexOf("fonts.googleapis.com")==-1;
                 }).attr('disabled', 'disabled');
             $(`link[href="${host}/stylesheets/reader.css"]`).removeAttr('disabled');
         } else {
             $(`link[rel="stylesheet"]`)
                 .filter(function() {
                     console.log("filter stylesheets", this.href);
-                    return this.href.indexOf(host)==-1;
+                    return this.href.indexOf(host)==-1 && this.href.indexOf("fonts.googleapis.com")==-1;
                 }).removeAttr('disabled', 'disabled');
             $(`link[href="${host}/stylesheets/reader.css"]`).attr('disabled', 'disabled');
         }
@@ -748,7 +748,7 @@ var kathy = ChattyKathy(settings);
             color: `#FFF`
         }];
 
-    var toChangeTags = $.merge($(`body`),$(`body`).find(`body, div, h1, h2, h3, h4, h5, h6, h7`));
+    var toChangeTags = $.merge($('#font-btn'), $(`body`),$(`body`).find(`body, div, h1, h2, h3, h4, h5, h6, h7`), );
 
     $("#contrast-next-btn").click(function(){
         for(var i = 0; i < contrastList.length; i ++){
