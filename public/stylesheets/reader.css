@@ -1,0 +1,11 @@
+body {
+    max-width: 75% !important;
+    margin: 0 auto !important;
+}
+img {
+	border: solid 1px #666; padding: 1em;
+	margin: .75em 0;
+}
+.reader-hidden {
+	display: none !important;
+}
