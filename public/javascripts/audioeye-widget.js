@@ -748,7 +748,8 @@ var kathy = ChattyKathy(settings);
             color: `#FFF`
         }];
 
-    var toChangeTags = $.merge($('#font-btn'), $(`body`),$(`body`).find(`body, div, h1, h2, h3, h4, h5, h6, h7`), );
+    var toChangeTags = $.merge($(`body`),$(`body`).find(`body, div, h1, h2, h3, h4, h5, h6, h7`));
+    var toChangeFontTags = $.merge($('#font-btn'), $(`body`),$(`body`).find(`body, div, h1, h2, h3, h4, h5, h6, h7`));
 
     $("#contrast-next-btn").click(function(){
         for(var i = 0; i < contrastList.length; i ++){
@@ -839,13 +840,13 @@ var kathy = ChattyKathy(settings);
             }
         }
         if(i < fontfaceList.length){
-            toChangeTags.toggleClass(
+            toChangeFontTags.toggleClass(
                 fontfaceList[i].title 
                 + ((i < fontfaceList.length - 1)? (" " + fontfaceList[i+1].title) : ""));
             // toChangeTags.removeClass(fontfaceList[i].title);
             // if (i < fontfaceList.length - 1) toChangeTags.addClass(fontfaceList[i+1].title);
         } else {
-            toChangeTags.addClass(fontfaceList[0].title);
+            toChangeFontTags.addClass(fontfaceList[0].title);
         }
     });
 
@@ -856,13 +857,13 @@ var kathy = ChattyKathy(settings);
             }
         }
         if(i < fontfaceList.length){
-            toChangeTags.toggleClass(
+            toChangeFontTags.toggleClass(
                 fontfaceList[i].title 
                 + ((i > 0)? (" " + fontfaceList[i-1].title) : ""));
             // toChangeTags.removeClass(fontfaceList[i].title);
             // if (i > 0) toChangeTags.addClass(fontfaceList[i-1].title);
         } else {
-            toChangeTags.addClass(fontfaceList[fontfaceList.length - 1].title);
+            toChangeFontTags.addClass(fontfaceList[fontfaceList.length - 1].title);
         }
     });
 
@@ -873,7 +874,7 @@ var kathy = ChattyKathy(settings);
             }
         }
         if(i < fontfaceList.length){
-            toChangeTags.removeClass(fontfaceList[i].title);
+            toChangeFontTags.removeClass(fontfaceList[i].title);
         }
     });
 
