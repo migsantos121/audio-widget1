@@ -1,5 +1,5 @@
 
-var host = `http://localhost:3003`;//`http://18.191.160.243:3003`;    
+var host = `http://18.191.160.243:3003`;//`http://18.191.160.243:3003`;    
 var awsCredentials = new AWS.Credentials();
 var settings = {
     awsCredentials: awsCredentials,
@@ -313,6 +313,72 @@ var kathy = ChattyKathy(settings);
                 <div class="player-bar-close-btn">&times;</div>
             </div>
 
+            <div id="helpdesk-panel">
+                <div class="helpdsk-close-btn">&times;</div>
+                <div>
+                    <div class="">
+                        <h2>Help Desk</h2>
+                    </div>
+                    <div class="helpdsk-content" tab="1">
+                        <div class="form-action-intr">
+                            <div class="form-action-title">
+                                This form will be submitted to Andrew.
+                            </div>
+                            <p class="form-action-description">Andrew helps ensure full access to web content but is not responsible for the creation or management of this site.</p>
+                        </div>
+                        <p>The Help Desk allows site visitors that have disabilities and/or may use assistive technologies to report accessibility or usability issues experienced on this website.</p>
+                        <form id="helpdesk_form" action="" method="post">
+                            <fieldset>
+                                <p id="isATUsed-title">
+                                    Do you use any Assistive Technology?
+                                </p>
+                                <div role="radiogroup">
+                                    <label for="isATUsed_yes"><input type="radio" name="isATUsed" id="isATUsed_yes" value="yes">&nbsp;&nbsp;Yes</label>
+                                    <label for="isATUsed_no"><input type="radio" name="isATUsed" id="isATUsed_no" value="no">&nbsp;&nbsp;No</label>
+                                </div>
+                            </fieldset>
+                            <div>
+                                <label for="Description">Feedback <span>(required)</span></label>
+                                <textarea name="Description" id="Description" required=""></textarea>
+                            </div>
+                            <div>
+                                <label for="Name">Name <span>(required)</span></label>
+                                <input type="text" name="Name" id="Name" required="">
+                            </div>
+                            <div>
+                                <label for="Email">Email <span>(required)</span></label>
+                                <input type="email" name="Email" id="Email" required="">
+                            </div>
+            
+                            <div>
+                                <input type="submit" name="go_Submit" value="Submit">
+                            </div>
+                        </form>
+                    </div> 
+                    <div class="helpdsk-content hidden" tab="2">
+                        <div class="helpdesk-response-content">
+                            <div>
+                                <img src="${host}/images/Loading_2.gif"  class="wdh32x32">
+                            </div>
+                            <div>
+                                <p>Sending form to Andrew ...</p>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="helpdsk-content hidden" tab="3">
+                        <div class="helpdesk-response-content">
+                            <div id="helpdesk-response">
+                                <p>Thank you for your submission.</p>
+                                <p>Our Accessibility Engineers are reviewing the information provided. As soon as we have made a complete assessment, Andrew will get in touch with you using the email address provided.</p>
+                            </div>
+                            <div>
+                                <input type="button" value="Close" class="helpdsk-formsubmit-result-close">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
 
             <div class="right-bar">
                 <div class="read-play-close-bar">
@@ -323,6 +389,9 @@ var kathy = ChattyKathy(settings);
                         <div class="tooltip-left" title="Player">
                             <div id="play-btn"><img src="${host}/images/play-button.svg" class="wdh32x32"></div>
                         </div>
+                        <div class="tooltip-left" title="Help">
+                            <div id="helpdsk-btn"><div class="helpdsk-si wdh32x32">?</div></div>
+                        </div>
                     </div>
                     <div class="right-bar-close-btn">&times;</div>
                     <div class="smicon-on-rightbar">
@@ -330,9 +399,8 @@ var kathy = ChattyKathy(settings);
                     </div>
                 </div>
             </div>
+            
         </div>`);   
-
-
 
     var speedSheet = {
         "0.8x": {
@@ -361,7 +429,7 @@ var kathy = ChattyKathy(settings);
         }, 
         "2.0x": {
             prev: "1.8x",
-            speed: 3
+            speed: 2
         }
     }
 
@@ -455,6 +523,25 @@ var kathy = ChattyKathy(settings);
             $(".player-bottom-bar").removeClass("half-size");
         }
     });
+
+    var hlBtn = $("#helpdsk-btn");
+    hlBtn.click(function(){
+        if(!hlBtn.hasClass( "sel" )) {
+            hlBtn.addClass("sel");
+            $("#helpdesk-panel").removeClass("hidden");
+            $( ".helpdsk-content[tab=1]" ).removeClass("hidden");
+            $( ".helpdsk-content[tab=2]" ).addClass("hidden");
+            $( ".helpdsk-content[tab=3]" ).addClass("hidden");
+        }
+        else {
+            hlBtn.removeClass("sel");
+            $("#helpdesk-panel").addClass("hidden");
+            $( ".helpdsk-content[tab=1]" ).removeClass("hidden");
+            $( ".helpdsk-content[tab=2]" ).addClass("hidden");
+            $( ".helpdsk-content[tab=3]" ).addClass("hidden");
+        }
+    });
+    
 
     processHoverEvent(plBtn, 
         `<img src="${host}/images/play-button-sel.svg" class="wdh32x32">`, 
@@ -590,6 +677,7 @@ var kathy = ChattyKathy(settings);
         $('html, body').animate({
             scrollTop: $(node).offset().top-100
         }, 100);
+        console.log("getSpeedNumber", getSpeedNumber());
         var toReadText = `\<speak><prosody rate="${getSpeedNumber()*100}%">` + node.textContent + `</prosody></speak>`;
         lastReadCommandTime = new Date();
         drawCanvasPlayProgress(ReadableElementList.length && cPlayingIndex/ReadableElementList.length, true);
@@ -605,12 +693,12 @@ var kathy = ChattyKathy(settings);
             node.classList.remove("ae-reading");
        //     console.log("finished", cPlayingIndex);
             if (isRead.indexOf(idx) != -1) {
-                console.log("returned because of double event trigger", idx);
+          //      console.log("returned because of double event trigger", idx);
                 return;
             }
             if (!playPauseBtn.hasClass("playing"))  {
                 drawCanvasPlayProgress(ReadableElementList.length && cPlayingIndex/ReadableElementList.length, false);
-                console.log("returned since paused *************");
+           //     console.log("returned since paused *************");
                 return;
             }
 
@@ -955,7 +1043,7 @@ var kathy = ChattyKathy(settings);
 
     function getSpeedNumber(){
         var spdString = getSpeedString();
-        return parseInt(spdString.slice(0, spdString.length-1));
+        return parseFloat(spdString.slice(0, spdString.length-1));
     }
     $("#play-speed-decrease-btn").click(function(){
         var cSpeed = getSpeedString();
@@ -990,7 +1078,38 @@ var kathy = ChattyKathy(settings);
         $(".player-bottom-bar").removeClass("half-size");
     });
 
+    $(".helpdsk-close-btn").click(function(){
+        $("#helpdesk-panel").addClass("hidden");
+        hlBtn.removeClass("sel");
+        $( ".helpdsk-content[tab=1]" ).removeClass("hidden");
+        $( ".helpdsk-content[tab=2]" ).addClass("hidden");
+        $( ".helpdsk-content[tab=3]" ).addClass("hidden");
+    });
+
+    $(".helpdsk-formsubmit-result-close").click(function(){
+        $("#helpdesk-panel").addClass("hidden");
+        hlBtn.removeClass("sel");
+        $( ".helpdsk-content[tab=1]" ).removeClass("hidden");
+        $( ".helpdsk-content[tab=2]" ).addClass("hidden");
+        $( ".helpdsk-content[tab=3]" ).addClass("hidden");
+    });
+
     $(".smicon").click(function(){
         $(".project-add-on").removeClass("hidden");
         $(".smicon").addClass("hidden");
     })
+
+    $('#helpdesk_form').on('submit', function(e) {
+        e.preventDefault(); 
+        var data = $("#helpdesk_form :input").serializeArray();
+        console.log(data); 
+        $( ".helpdsk-content[tab=1]" ).addClass("hidden");
+        $( ".helpdsk-content[tab=2]" ).removeClass("hidden");
+        $.post( "http://18.191.160.243:3003/api/helpdesk", data)
+            .done(function( result ) {
+                console.log( result );
+
+                $( ".helpdsk-content[tab=2]" ).addClass("hidden");
+                $( ".helpdsk-content[tab=3]" ).removeClass("hidden");
+            });
+    });
