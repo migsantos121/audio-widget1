@@ -603,7 +603,7 @@ var kathy = ChattyKathy(settings);
     var currentAddOnLayout = $(".project-add-on")[0];
 
     function getTextFromNode(item) {
-        if (item.tagName != "img" && item.tagName != "IMG") {
+        if (item.tagName == "img" || item.tagName == "IMG") {
             return item.alt;
         } else {
             return item.textContent;
@@ -621,7 +621,7 @@ var kathy = ChattyKathy(settings);
                 item.tagName != "noscript" && item.tagName != "NOSCRIPT" &&
                 item.tagName != "style" && item.tagName != "STYLE" &&
                 item.tagName != "a" && item.tagName != "A") {
-            if (item.tagName != "img" && item.tagName != "IMG") {
+            if (item.tagName == "img" || item.tagName == "IMG") {
                 if (item.alt && item.alt.length > 0) {
                     ReadableElementList.push(item);
                     console.log("<----", item.alt);
