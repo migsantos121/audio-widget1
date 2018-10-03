@@ -313,7 +313,7 @@ var kathy = ChattyKathy(settings);
                 <div class="player-bar-close-btn">&times;</div>
             </div>
 
-            <div id="helpdesk-panel">
+            <div id="helpdesk-panel" class="hidden">
                 <div class="helpdsk-close-btn">&times;</div>
                 <div>
                     <div class="">
