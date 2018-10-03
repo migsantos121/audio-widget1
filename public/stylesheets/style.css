@@ -505,7 +505,9 @@
     }
     #helpdesk-panel {
         user-select: none;
-        height: calc(100% - 200px); 
+        height: calc(100% - 80px); 
+        max-height: 750px;
+        overflow: scroll;
         width: 500px; 
         position: fixed; 
         top: 0;
