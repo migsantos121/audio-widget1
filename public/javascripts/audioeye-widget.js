@@ -619,8 +619,9 @@ var kathy = ChattyKathy(settings);
                 item.tagName != "meta" && item.tagName != "META" &&
                 item.tagName != "title" && item.tagName != "TITLE" &&
                 item.tagName != "noscript" && item.tagName != "NOSCRIPT" &&
-                item.tagName != "style" && item.tagName != "STYLE" &&
-                item.tagName != "a" && item.tagName != "A") {
+                item.tagName != "style" && item.tagName != "STYLE") {
+                //  &&
+                // item.tagName != "a" && item.tagName != "A") {
             if (item.tagName == "img" || item.tagName == "IMG") {
                 if (item.alt && item.alt.length > 0) {
                     ReadableElementList.push(item);
