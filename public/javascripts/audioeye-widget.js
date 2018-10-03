@@ -1,5 +1,5 @@
 
-var host = `http://18.191.160.243:3003`;//`http://18.191.160.243:3003`;    
+var host = `http://localhost:3003`;//`http://18.191.160.243:3003`;    
 var awsCredentials = new AWS.Credentials();
 var settings = {
     awsCredentials: awsCredentials,
@@ -251,36 +251,36 @@ var kathy = ChattyKathy(settings);
             <div class="audio-events"> </div>
             <div class="reader-bottom-bar hidden">
                 <div class="zoom-bar">
-                    <div class="tooltip1" title="Zoom Out">
-                        <div id="zmout-btn"><img src="${host}/images/zoom-out.svg"></div>
+                    <div id="zmout-btn" title="Zoom Out">
+                        <span class="glyphicon glyphicon-zoom-out" style="font-size: 22px;"></span>
                     </div>
-                    <div class="tooltip1" title="Reset Zoom">
-                        <div id="refresh-btn" ><img src="${host}/images/refresh.svg" class="wdh24x24"></div>
+                    <div id="refresh-btn" title="Reset Zoom">
+                        <img src="${host}/images/refresh.svg" class="wdh24x24">
                     </div>
-                    <div class="tooltip1" title="Zoom In">
-                        <div id="zmin-btn"><img src="${host}/images/zoom-in.svg"></div>
+                    <div id="zmin-btn" title="Zoom In">
+                        <span class="glyphicon glyphicon-zoom-in" style="font-size: 22px;"></span>
                     </div>
                 </div>
                 <div class="font-bar">
-                    <div class="tooltip1" title="Previous Font">
-                        <div id="font-prev-btn"><img src="${host}/images/left-arrow.svg"></div>
+                    <div id="font-prev-btn" title="Previous Font">
+                        <span class="glyphicon glyphicon-menu-left" style="font-size: 22px;"></span>
                     </div>
-                    <div class="tooltip1" title="Reset Font">
-                        <div id="font-btn"><span style="width:30px;height:30px;">Aa</span></div>
+                    <div id="font-btn" title="Reset Font">
+                        <span style="width:30px;height:30px;">Aa</span>
                     </div>
-                    <div class="tooltip1" title="Next Font">
-                        <div id="font-next-btn"><img src="${host}/images/right-arrow.svg"></div>
+                    <div id="font-next-btn" title="Next Font">
+                        <span class="glyphicon glyphicon-menu-right" style="font-size: 22px;"></span>
                     </div>
                 </div>
                 <div class="contrast-bar">
-                    <div class="tooltip1" title="Previous Contrast">
-                        <div id="contrast-prev-btn"><img src="${host}/images/left-arrow.svg"></div>
+                    <div id="contrast-prev-btn" title="Previous Contrast">
+                        <span class="glyphicon glyphicon-menu-left" style="font-size: 22px;"></span>
                     </div>
-                    <div class="tooltip1" title="Reset Contrast">
-                        <div id="contrast-btn"><img src="${host}/images/contrast.svg" class="wdh24x24"></div>
+                    <div id="contrast-btn" title="Reset Contrast">
+                        <img src="${host}/images/contrast.svg" class="wdh24x24">
                     </div>
-                    <div class="tooltip1" title="Next Contrast">
-                        <div id="contrast-next-btn"><img src="${host}/images/right-arrow.svg"></div>
+                    <div id="contrast-next-btn" title="Next Contrast">
+                        <span class="glyphicon glyphicon-menu-right" style="font-size: 22px;"></span>
                     </div>
                 </div>
                 <div class="reader-bar-close-btn">&times;</div>
@@ -300,14 +300,14 @@ var kathy = ChattyKathy(settings);
 
                 </div>
                 <div class="play-speed-bar">
-                    <div class="tooltip1" title="Decrease Speed">
-                        <div id="play-speed-decrease-btn"><span style="width:30px;height:30px;">&nbsp;&minus;</span></div>
+                    <div id="play-speed-decrease-btn" title="Decrease Speed">
+                        <span class="glyphicon glyphicon-minus" style="font-size: 22px;"></span>
                     </div>
-                    <div class="tooltip1" title="Reset Speed">
-                        <div id="play-speed-reset-btn"><span style="width:30px;height:30px;">1.0x</span></div>
+                    <div id="play-speed-reset-btn" title="Reset Speed">
+                        <span style="width:30px;height:30px;">1.0x</span>
                     </div>
-                    <div class="tooltip1" title="Increase Speed">
-                        <div id="play-speed-increase-btn"><span style="width:30px;height:30px;">&plus;&nbsp;</span></div>
+                    <div id="play-speed-increase-btn" title="Increase Speed">
+                        <span class="glyphicon glyphicon-plus" style="font-size: 22px;"></span>
                     </div>
                 </div>
                 <div class="player-bar-close-btn">&times;</div>
@@ -400,7 +400,10 @@ var kathy = ChattyKathy(settings);
                 </div>
             </div>
             
-        </div>`);   
+        </div>`);   //font-next-btn <img src="${host}/images/right-arrow.svg">
+                    //font-prev-btn <img src="${host}/images/left-arrow.svg">
+                    //zmin-btn <img src="${host}/images/zoom-in.svg">
+                    //zmout-btn <img src="${host}/images/zoom-out.svg">
 
     var speedSheet = {
         "0.8x": {
@@ -553,13 +556,13 @@ var kathy = ChattyKathy(settings);
         `<img src="${host}/images/read-button.svg" class="wdh32x32">`,
         function () { return !rdBtn.hasClass("sel");});
 
-    processHoverEvent($("#zmin-btn"), 
-        `<img src="${host}/images/zoom-in-sel.svg">`, 
-        `<img src="${host}/images/zoom-in.svg">`);
+    // processHoverEvent($("#zmin-btn"), 
+    //     `<img src="${host}/images/zoom-in-sel.svg">`, 
+    //     `<img src="${host}/images/zoom-in.svg">`);
 
-    processHoverEvent($("#zmout-btn"), 
-        `<img src="${host}/images/zoom-out-sel.svg">`, 
-        `<img src="${host}/images/zoom-out.svg">`);
+    // processHoverEvent($("#zmout-btn"), 
+    //     `<img src="${host}/images/zoom-out-sel.svg">`, 
+    //     `<img src="${host}/images/zoom-out.svg">`);
 
     processHoverEvent($("#refresh-btn"), 
         `<img src="${host}/images/refresh-sel.svg" class="wdh24x24">`, 
@@ -569,21 +572,21 @@ var kathy = ChattyKathy(settings);
         `<img src="${host}/images/contrast-sel.svg" class="wdh24x24">`, 
         `<img src="${host}/images/contrast.svg" class="wdh24x24">`);
 
-    processHoverEvent($("#contrast-prev-btn"), 
-        `<img src="${host}/images/left-arrow-sel.svg">`, 
-        `<img src="${host}/images/left-arrow.svg">`);
+    // processHoverEvent($("#contrast-prev-btn"), 
+    //     `<img src="${host}/images/left-arrow-sel.svg">`, 
+    //     `<img src="${host}/images/left-arrow.svg">`);
 
-    processHoverEvent($("#contrast-next-btn"), 
-        `<img src="${host}/images/right-arrow-sel.svg">`, 
-        `<img src="${host}/images/right-arrow.svg">`);
+    // processHoverEvent($("#contrast-next-btn"), 
+    //     `<img src="${host}/images/right-arrow-sel.svg">`, 
+    //     `<img src="${host}/images/right-arrow.svg">`);
 
-    processHoverEvent($("#font-prev-btn"), 
-        `<img src="${host}/images/left-arrow-sel.svg">`, 
-        `<img src="${host}/images/left-arrow.svg">`);
+    // processHoverEvent($("#font-prev-btn"), 
+    //     `<img src="${host}/images/left-arrow-sel.svg">`, 
+    //     `<img src="${host}/images/left-arrow.svg">`);
 
-    processHoverEvent($("#font-next-btn"), 
-        `<img src="${host}/images/right-arrow-sel.svg">`, 
-        `<img src="${host}/images/right-arrow.svg">`);
+    // processHoverEvent($("#font-next-btn"), 
+    //     `<img src="${host}/images/right-arrow-sel.svg">`, 
+    //     `<img src="${host}/images/right-arrow.svg">`);
 
     processHoverEvent($("#mvprv-btn"), 
         `<img src="${host}/images/back-sel.svg" class="wdh24x24">`, 
@@ -1038,7 +1041,7 @@ var kathy = ChattyKathy(settings);
         var cSpeed = $("#play-speed-reset-btn").html();
         cSpeed = cSpeed.replace(`<span style="width:30px;height:30px;">`, "");
         cSpeed = cSpeed.replace(`</span>`, "");
-        return cSpeed;
+        return cSpeed.trim();
     }
 
     function getSpeedNumber(){
@@ -1047,6 +1050,9 @@ var kathy = ChattyKathy(settings);
     }
     $("#play-speed-decrease-btn").click(function(){
         var cSpeed = getSpeedString();
+        console.log(cSpeed, speedSheet, speedSheet[cSpeed]);
+        console.log(Object.keys(speedSheet), speedSheet["1.0x"]);
+        console.log("1.0x", cSpeed);
         var nextSpeed = speedSheet[cSpeed].prev;
         if (nextSpeed)
             $("#play-speed-reset-btn").html(`<span style="width:30px;height:30px;">${nextSpeed}</span>`);
