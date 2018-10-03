@@ -1,4 +1,4 @@
-    .tooltip {
+/*    .tooltip {
         display: inline;
         position: relative;
     }
@@ -100,7 +100,7 @@
         position: absolute;
         z-index: 99;
     }
-
+*/
     .smicon {
         position: fixed;right: 0; bottom: 100px; background-color: rgba(0, 0, 0, 0);
         z-index: 1000000001;
