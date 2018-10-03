@@ -625,6 +625,10 @@ var kathy = ChattyKathy(settings);
                 if (item.alt && item.alt.length > 0) {
                     ReadableElementList.push(item);
                     console.log("<----", item.alt);
+                } else {
+
+                    ReadableElementList.push(item);
+                    console.log("<>>>>>", item, item.alt);
                 }
             } else {
                 var flag = Array.from(item.childNodes).some(
@@ -652,12 +656,9 @@ var kathy = ChattyKathy(settings);
         var totalElements = $('body').find('*');
         for (var i = 0; i < totalElements.length; i ++){
             if ($(totalElements[i]).is(":hidden") || $(totalElements[i]).height() == 0 || $(totalElements[i]).width() == 0){
-                console.log("add reader-hidden", totalElements[i])
                 $(totalElements[i]).addClass("reader-hidden");
             }
         }
-        console.log("add reader-hidden", $(".img-wrapper").is(":hidden"));
-        console.log("add reader-hidden",$(".img-wrapper").height(), $(".img-wrapper").width());
     }
 
     var lastReadCommandTime = new Date();
