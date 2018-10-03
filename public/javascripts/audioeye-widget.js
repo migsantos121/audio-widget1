@@ -627,8 +627,6 @@ var kathy = ChattyKathy(settings);
                     ReadableElementList.push(item);
                     console.log("<----", item.alt);
                 } else {
-
-                    ReadableElementList.push(item);
                     console.log("<>>>>>", item, item.alt);
                 }
             } else {
