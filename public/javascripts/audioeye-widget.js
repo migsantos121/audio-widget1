@@ -622,6 +622,9 @@ var kathy = ChattyKathy(settings);
                 item.tagName != "style" && item.tagName != "STYLE") {
                 //  &&
                 // item.tagName != "a" && item.tagName != "A") {
+            if(item.classList && item.classList.contains("reader-hidden")){
+                return;
+            }
             if (item.tagName == "img" || item.tagName == "IMG") {
                 if (item.alt && item.alt.length > 0) {
                     ReadableElementList.push(item);
@@ -983,8 +986,8 @@ var kathy = ChattyKathy(settings);
         }
     });
 
-    getReadableElements(document.body);
     markHiddenElemtents();
+    getReadableElements(document.body);
     prepareAudio();
     $('head').append('<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Inconsolata|Droid+Sans">');
 
