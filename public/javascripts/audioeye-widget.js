@@ -4,7 +4,7 @@ var awsCredentials = new AWS.Credentials();
 var settings = {
     awsCredentials: awsCredentials,
     awsRegion: "us-east-2",
-    pollyVoiceId: "Lotte",//Ruben//Lotte//"Justin":English,"Ruben":Dutch
+    pollyVoiceId: "Ruben",//Ruben//Lotte//"Justin":English,"Ruben":Dutch
     cacheSpeech: true
 };
 var manualLocalCache = [];
