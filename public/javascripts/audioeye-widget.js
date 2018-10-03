@@ -598,10 +598,17 @@ var kathy = ChattyKathy(settings);
 
     var ReadableElementList = [];
     var isRead = [];
-    var PlayTime = [];
     var cPlayingIndex = 0;
     var currentAddOnSmIcon = $(".smicon")[0];
     var currentAddOnLayout = $(".project-add-on")[0];
+
+    function getTextFromNode(item) {
+        if (item.tagName != "img" && item.tagName != "IMG") {
+            return item.alt;
+        } else {
+            return item.textContent;
+        }
+    }
     
     function getReadableElements(item){
         if ( !currentAddOnLayout.contains(item) &&
@@ -613,24 +620,29 @@ var kathy = ChattyKathy(settings);
                 item.tagName != "title" && item.tagName != "TITLE" &&
                 item.tagName != "noscript" && item.tagName != "NOSCRIPT" &&
                 item.tagName != "style" && item.tagName != "STYLE" &&
-                item.tagName != "img" && item.tagName != "IMG" &&
                 item.tagName != "a" && item.tagName != "A") {
-            var flag = Array.from(item.childNodes).some(
-                    child => {
-                        if (child.nodeType === child.TEXT_NODE &&
-                            /.*[a-zA-Z]+.*$/.test(child.textContent)){
-                            return true;
-                        }
-                        return false;
-                    }
-                );
-            if (flag){
-                ReadableElementList.push(item);
-                PlayTime.push(item.textContent.length*50 + 2000);
-          //      console.log(item.textContent);
+            if (item.tagName != "img" && item.tagName != "IMG") {
+                if (item.alt && item.alt.length > 0) {
+                    ReadableElementList.push(item);
+                    console.log("<----", item.alt);
+                }
             } else {
-                for (var i = 0; i < item.childNodes.length; i ++){
-                    getReadableElements(item.childNodes[i]);
+                var flag = Array.from(item.childNodes).some(
+                        child => {
+                            if (child.nodeType === child.TEXT_NODE &&
+                                /.*[a-zA-Z]+.*$/.test(child.textContent)){
+                                return true;
+                            }
+                            return false;
+                        }
+                    );
+                if (flag){
+                    ReadableElementList.push(item);
+              //      console.log(item.textContent);
+                } else {
+                    for (var i = 0; i < item.childNodes.length; i ++){
+                        getReadableElements(item.childNodes[i]);
+                    }
                 }
             }
         }
@@ -663,7 +675,9 @@ var kathy = ChattyKathy(settings);
             for (var i = 0; i < ReadableElementList.length; i ++){
                 var keys = Object.keys(speedSheet);
                 for (var j = 0; j < keys.length; j ++){
-                    var toReadText = `\<speak><prosody rate="${speedSheet[keys[j]].speed*100}%">` + ReadableElementList[i].textContent + `</prosody></speak>`;
+                    var toReadText = 
+                                `\<speak><prosody rate="${speedSheet[keys[j]].speed*100}%">` 
+                                    + getTextFromNode(ReadableElementList[i]) + `</prosody></speak>`;
 
                     setTimeout(function(){
                         kathy.prepareAudio(toReadText);
@@ -681,7 +695,7 @@ var kathy = ChattyKathy(settings);
             scrollTop: $(node).offset().top-100
         }, 100);
         console.log("getSpeedNumber", getSpeedNumber());
-        var toReadText = `\<speak><prosody rate="${getSpeedNumber()*100}%">` + node.textContent + `</prosody></speak>`;
+        var toReadText = `\<speak><prosody rate="${getSpeedNumber()*100}%">` + getTextFromNode(node) + `</prosody></speak>`;
         lastReadCommandTime = new Date();
         drawCanvasPlayProgress(ReadableElementList.length && cPlayingIndex/ReadableElementList.length, true);
 

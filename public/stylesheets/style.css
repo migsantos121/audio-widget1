@@ -24,7 +24,7 @@
     .smicon.hover {
         background-color: rgb(37, 42, 48);
     }
-    
+
     .explore-expand-string {
         width: 124px; 
         float: left; 
@@ -428,7 +428,8 @@
         height: calc(100% - 80px); 
         max-height: 750px;
         overflow: scroll;
-        width: 500px; 
+        max-width: 500px; 
+        width: calc(100% - 60px);
         position: fixed; 
         top: 0;
         right: 60px;
