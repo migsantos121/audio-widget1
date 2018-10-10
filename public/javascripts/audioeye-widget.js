@@ -1,5 +1,8 @@
 
-var host = `http://localhost:3003`;//`http://18.191.160.243:3003`;    
+var host = `http://18.191.160.243:3003`;//`http://18.191.160.243:3003`;    
+var break_time_sentences = 2;
+var break_time_items = 1;
+
 var awsCredentials = new AWS.Credentials();
 var settings = {
     awsCredentials: awsCredentials,
@@ -606,7 +609,13 @@ var kathy = ChattyKathy(settings);
         if (item.tagName == "img" || item.tagName == "IMG") {
             return item.alt;
         } else {
-            return item.textContent;
+            var result = item.textContent.match( /[^\.!\?]+[\.!\?]+/g );
+            if (!result) {
+                // console.log("item.textContent ", item.textContent, " ", item.textContent);
+                return item.textContent;
+            }
+            // console.log("item.textContent ", item.textContent, " ", result.join(` <break time="1s"/>`));
+            return result.join(` <break time="${break_time_sentences}s"/>`)
         }
     }
     
@@ -628,23 +637,21 @@ var kathy = ChattyKathy(settings);
             if (item.tagName == "img" || item.tagName == "IMG") {
                 if (item.alt && item.alt.length > 0) {
                     ReadableElementList.push(item);
-                    console.log("<----", item.alt);
                 } else {
-                    console.log("<>>>>>", item, item.alt);
                 }
             } else {
+                               
                 var flag = Array.from(item.childNodes).some(
                         child => {
-                            if (child.nodeType === child.TEXT_NODE &&
-                                /.*[a-zA-Z]+.*$/.test(child.textContent)){
+                            if (child.nodeType === child.TEXT_NODE && child.textContent.trim() != ""){
                                 return true;
                             }
                             return false;
                         }
                     );
                 if (flag){
+
                     ReadableElementList.push(item);
-              //      console.log(item.textContent);
                 } else {
                     for (var i = 0; i < item.childNodes.length; i ++){
                         getReadableElements(item.childNodes[i]);
@@ -666,15 +673,15 @@ var kathy = ChattyKathy(settings);
     var lastReadCommandTime = new Date();
     function Read(cmdTime, cmdObj){
         if ( cmdTime.getTime() < lastReadCommandTime.getTime()){
-            console.log("automatically cancelled", cmdObj.ci);
+            // console.log("automatically cancelled", cmdObj.ci);
             return;
         }
-        console.log("Read", (new Date()).getTime(), cmdTime.getTime(), "=", lastReadCommandTime.getTime(), cmdObj.ci);
+        // console.log("Read", (new Date()).getTime(), cmdTime.getTime(), "=", lastReadCommandTime.getTime(), cmdObj.ci);
         kathy.Speak(cmdObj);
    //     ableToMoveNxtPrv = true;
     }
     function prepareAudio(text){
-            console.log("prepareAudio start");
+            // console.log("prepareAudio start");
             for (var i = 0; i < ReadableElementList.length; i ++){
                 var keys = Object.keys(speedSheet);
                 for (var j = 0; j < keys.length; j ++){
@@ -684,11 +691,11 @@ var kathy = ChattyKathy(settings);
 
                     setTimeout(function(){
                         kathy.prepareAudio(toReadText);
-                        console.log("prepare All finished");
+                        // console.log("prepare All finished");
                     }, (i+j)*500);
                 }
             }
-            console.log("prepareAudio end");
+            // console.log("prepareAudio end");
     }
     function addReadingAnimation(){
         node = ReadableElementList[cPlayingIndex];
@@ -697,7 +704,7 @@ var kathy = ChattyKathy(settings);
         $('html, body').animate({
             scrollTop: $(node).offset().top-100
         }, 100);
-        console.log("getSpeedNumber", getSpeedNumber());
+        // console.log("getSpeedNumber", getSpeedNumber());
         var toReadText = `\<speak><prosody rate="${getSpeedNumber()*100}%">` + getTextFromNode(node) + `</prosody></speak>`;
         lastReadCommandTime = new Date();
         drawCanvasPlayProgress(ReadableElementList.length && cPlayingIndex/ReadableElementList.length, true);
@@ -723,7 +730,7 @@ var kathy = ChattyKathy(settings);
             }
 
             isRead.push(idx);
-            console.log("finish read ****", ci, idx);
+            // console.log("finish read ****", ci, idx);
             cPlayingIndex = ci + 1;
       //      console.log("moving to next");
             drawCanvasPlayProgress(ReadableElementList.length && cPlayingIndex/ReadableElementList.length, true);
@@ -736,7 +743,7 @@ var kathy = ChattyKathy(settings);
                     isRead = isRead.slice(80);
                 }
                 addReadingAnimation();
-            }, 300);
+            }, break_time_items*1000);
         });
     }
 
